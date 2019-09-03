@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'web_view_container.dart';
+
+class Home extends StatelessWidget {
+  final _links = [
+    'http://puroangola.com/ojogo/getData.php',
+    'http://puroangola.com/'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: _links.map((link) => _urlButton(context, link)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  //buttons
+  Widget _urlButton(BuildContext context, String url) {
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      child: FlatButton(
+        color: Theme.of(context).primaryColor,
+        padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+        //here the buttons use either the url or a "title", ths problem is ging differente "titles"
+        child: Text(url),
+        onPressed: () => _handleURLButtonPress(context, url),
+      ),
+    );
+  }
+
+  //calls the url
+  void _handleURLButtonPress(BuildContext context, String url) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => WebViewContainer(url)));
+  }
+}
